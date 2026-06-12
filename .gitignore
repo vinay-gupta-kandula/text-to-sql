@@ -1,0 +1,42 @@
+# =========================
+# Secrets & Configurations
+# =========================
+# NEVER COMMIT THIS! Contains your private API keys.
+.env
+
+# Streamlit secrets (if you use them later)
+.streamlit/secrets.toml
+
+# =========================
+# Python Environments
+# =========================
+venv/
+env/
+.venv/
+
+# =========================
+# Python Cache & Artifacts
+# =========================
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+dist/
+build/
+*.egg-info/
+
+# =========================
+# IDE & System Files
+# =========================
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# =========================
+# Databases & Logs
+# =========================
+# Optional: Uncomment the line below if you don't want to track your local database changes in Git.
+# worldbank.db
+*.log

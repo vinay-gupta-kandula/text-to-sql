@@ -1,0 +1,30 @@
+{"input": {"question": "What was the population of India in 2022?"}, "output": {"expected_output": "1417173173"}}
+{"input": {"question": "What was the current USD GDP of China in 2022?"}, "output": {"expected_output": "17963200000000"}}
+{"input": {"question": "Show me the GDP growth percentage of Germany in 2021."}, "output": {"expected_output": "2.6"}}
+{"input": {"question": "What was the life expectancy in Japan for the year 2020?"}, "output": {"expected_output": "84.6"}}
+{"input": {"question": "Give me the unemployment percentage in Brazil in 2019."}, "output": {"expected_output": "11.9"}}
+{"input": {"question": "What was the Gini index of South Africa in 2014?"}, "output": {"expected_output": "63.0"}}
+{"input": {"question": "What was the health expenditure as a percentage of GDP in France in 2021?"}, "output": {"expected_output": "12.3"}}
+{"input": {"question": "Show the CO2 emissions per capita for Canada in 2018."}, "output": {"expected_output": "15.5"}}
+{"input": {"question": "What was the education expenditure of the United Kingdom in 2020?"}, "output": {"expected_output": "5.3"}}
+{"input": {"question": "What was the GDP per capita of Australia in 2022?"}, "output": {"expected_output": "65500"}}
+{"input": {"question": "Which region had the fastest average GDP growth between 2013 and 2022?"}, "output": {"expected_output": "East Asia & Pacific"}}
+{"input": {"question": "What is the total population of the South Asia region in 2022?"}, "output": {"expected_output": "1912000000"}}
+{"input": {"question": "List the average health expenditure pct gdp by income group in 2020."}, "output": {"expected_output": "High income"}}
+{"input": {"question": "Which income group had the highest average unemployment rate in 2022?"}, "output": {"expected_output": "Upper middle income"}}
+{"input": {"question": "What was the average life expectancy in Sub-Saharan Africa in 2022?"}, "output": {"expected_output": "60.2"}}
+{"input": {"question": "Show the average CO2 emissions per capita by region in 2020."}, "output": {"expected_output": "North America"}}
+{"input": {"question": "What is the average Gini index for Latin America & Caribbean?"}, "output": {"expected_output": "45.2"}}
+{"input": {"question": "What was the total global population recorded in 2022?"}, "output": {"expected_output": "7950000000"}}
+{"input": {"question": "Which lending type has the highest average education expenditure?"}, "output": {"expected_output": "IBRD"}}
+{"input": {"question": "What was the average GDP growth pct for Europe & Central Asia in 2022?"}, "output": {"expected_output": "3.2"}}
+{"input": {"question": "How did India's population change from 2010 to 2022?"}, "output": {"expected_output": "Increased from 1.24 billion to 1.41 billion"}}
+{"input": {"question": "What is the trend of GDP per capita in the United States from 2015 to 2022?"}, "output": {"expected_output": "Steady growth up to 76398"}}
+{"input": {"question": "Show the trend of carbon emissions per capita in China over the last decade."}, "output": {"expected_output": "Upward trend exceeding 8.0"}}
+{"input": {"question": "Is health spending correlated with life expectancy globally?"}, "output": {"expected_output": "Positive correlation"}}
+{"input": {"question": "Does a higher Gini index correlate with higher unemployment rates?"}, "output": {"expected_output": "Moderate to weak relationship"}}
+{"input": {"question": "Is there a relationship between GDP per capita and CO2 emissions per capita?"}, "output": {"expected_output": "Strong positive correlation"}}
+{"input": {"question": "What was the GDP of the Roman Empire in 2022?"}, "output": {"expected_output": "No data found / Alternative Suggestion"}}
+{"input": {"question": "Show the unemployment rate of Atlantis for 2020."}, "output": {"expected_output": "No data found / Alternative Suggestion"}}
+{"input": {"question": "What was the population of India in 2035?"}, "output": {"expected_output": "No data found / Nearest available year suggested"}}
+{"input": {"question": "How is the economy doing?"}, "output": {"expected_output": "Ambiguous query / Clarification request"}}
