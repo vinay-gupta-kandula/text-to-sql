@@ -3,6 +3,7 @@ import json
 from langsmith import Client
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.messages import HumanMessage
 from agent.state import AgentState
 from agent.db import get_schema, execute_sql
 
@@ -176,16 +177,6 @@ def chart_generator(state: AgentState):
         
     return {"chart_spec": chart_spec}
 
-def memory_node(state: AgentState):
-    """Saves the conversation history."""
-    print("--- 🧠 NODE: Updating Memory ---")
-    
-    messages = state.get("messages", [])
-    messages.append({"role": "user", "content": state.get("question", "")})
-    messages.append({"role": "assistant", "content": state.get("interpretation", "")})
-    
-    return {"messages": messages}
-
 def ambiguity_checker(state: AgentState):
     """Checks if the question is specific enough to query, using conversation history."""
     print("--- 🧐 NODE: Checking Ambiguity ---")
@@ -231,3 +222,51 @@ def clarification_node(state: AgentState):
     response = chain.invoke({"question": combined_question})
     
     return {"interpretation": response.content}
+
+def memory_node(state: AgentState):
+    """Saves the conversation history and intelligently merges follow-up context entities."""
+    print("--- 🧠 NODE: Updating Memory & Extracting Context ---")
+    
+    question = state.get("question", "")
+    
+    # 1. Update standard conversation memory
+    messages = state.get("messages", [])
+    messages.append({"role": "user", "content": question})
+    messages.append({"role": "assistant", "content": state.get("interpretation", "")})
+    
+    # 2. Extract context for Requirement 9
+    extraction_template = """
+    Extract the following entities from the user's question for context tracking.
+    Return ONLY a valid JSON object with exactly these keys: "country", "year", "indicator".
+    If an entity is not explicitly mentioned, set its value to null.
+    
+    User Question: "{question}"
+    """
+    
+    # Get the existing context from the state (or initialize empty)
+    existing_context = state.get("follow_up_context", {})
+    if not existing_context:
+        existing_context = {"country": None, "year": None, "indicator": None}
+        
+    try:
+        prompt = ChatPromptTemplate.from_template(extraction_template)
+        chain = prompt | llm
+        response = chain.invoke({"question": question})
+        
+        # Clean the output to ensure it is pure JSON
+        clean_text = response.content.replace("```json", "").replace("```", "").strip()
+        new_entities = json.loads(clean_text)
+        
+        # MERGE LOGIC: Only update keys if the LLM found a new, non-null value
+        for key in ["country", "year", "indicator"]:
+            if new_entities.get(key) is not None:
+                existing_context[key] = new_entities[key]
+                
+        print(f"   [+] Updated context: {existing_context}")
+        
+    except Exception as e:
+        # Safe fallback if parsing fails, just keep the old context
+        print(f"   [!] Failed to extract new context: {e}")
+
+    # Return the merged context back to the state
+    return {"messages": messages, "follow_up_context": existing_context}

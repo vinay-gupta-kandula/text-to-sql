@@ -1,25 +1,17 @@
-Here is a comprehensive, professional `README.md` perfectly tailored to the exact architecture, features, and evaluation requirements you just built.
-
-You can copy this directly into a new file named `README.md` in your project's root directory.
-
----
-
-```markdown
 # 🤖 DataChat: World Bank SQL Agent
 
 An intelligent, stateful AI data assistant that translates natural language into precise SQL queries, executes them against a World Bank macroeconomic database, and dynamically generates interactive visualizations. Built with LangGraph, Streamlit, and Google Gemini.
 
 ## ✨ Key Features
-
 * **Natural Language to SQL:** Ask complex questions in plain English (e.g., "What was the GDP of India in 2022?") and watch the agent write and execute the exact SQL required.
 * **Agentic Self-Correction:** Built-in LangGraph fallback mechanisms catch SQL execution errors, analyze the database schema, and autonomously rewrite failing queries up to 3 times before returning a graceful error.
+* **Multi-Turn Context Memory:** The agent remembers previous entities. Ask "What is the GDP of Germany?", followed by "What about France?", and the agent intelligently merges the context.
 * **Dynamic Data Visualization:** Automatically interprets when a query benefits from a chart (Bar, Line, Scatter) and seamlessly renders interactive native Streamlit graphics using Pandas.
-* **Intelligent Edge-Case Handling:** Gracefully handles empty data results (e.g., "GDP of the Roman Empire") by providing contextual explanations or suggesting alternative available metrics.
+* **Intelligent Edge-Case Handling:** Gracefully handles empty data results by providing contextual explanations or suggesting alternative available metrics.
 * **Production Observability:** Fully integrated with **LangSmith** to push real-time telemetry, tagging runs with metadata such as `success`, `self_corrected`, `empty_result`, and tracking model retry counts.
 * **Containerized Deployment:** Fully Dockerized for guaranteed reproducibility across local and cloud environments.
 
 ## 🛠️ Technology Stack
-
 * **Frontend:** Streamlit, Pandas
 * **AI Orchestration:** LangGraph, LangChain
 * **LLM Provider:** Google Gemini API (`gemini-2.5-flash`)
@@ -59,6 +51,10 @@ source venv/bin/activate  # On Windows use: venv\Scripts\activate
 # Install dependencies
 pip install -r requirements.txt
 
+# IMPORTANT: Initialize the Database and Fetch World Bank Data
+python setup/load_data.py
+python setup/verify_db.py
+
 # Launch the application
 streamlit run app.py
 
@@ -84,9 +80,9 @@ This agent is built with a programmatic MLOps testing suite. A 30-question evalu
 
 Every query executed through the Streamlit UI pushes exact state metadata to LangSmith for evaluation:
 
-* `intent`: Tracks if the query was a data request.
-* `retry_count`: Logs how many times the agent had to self-correct its SQL.
-* `Tags`: Automatically flags runs as `success`, `self_corrected`, `empty_result`, or `max_retries_reached`.
+* **intent:** Tracks if the query was a data request.
+* **retry_count:** Logs how many times the agent had to self-correct its SQL.
+* **Tags:** Automatically flags runs as `success`, `self_corrected`, `empty_result`, or `max_retries_reached`.
 
 ### Running the Evaluator
 
@@ -105,6 +101,7 @@ python evals/scorers.py
 ├── agent/
 │   ├── graph.py          # Core LangGraph state machine workflow
 │   ├── nodes.py          # Individual node execution logic
+│   ├── db.py             # Database execution helpers
 │   └── state.py          # State definitions for the LangGraph agent
 ├── evals/
 │   ├── dataset.jsonl     # 30-question evaluation ground-truth dataset
@@ -122,3 +119,4 @@ python evals/scorers.py
 ├── docker-compose.yml    # Multi-container orchestration
 ├── .env.example          # Template for environment variables
 └── worldbank.db          # Local SQLite macroeconomic database
+

@@ -4,6 +4,6 @@ langgraph
 langchain-google-genai
 pandas
 sqlalchemy
-wbdata
 requests
 python-dotenv
+wbdata==0.3.0
